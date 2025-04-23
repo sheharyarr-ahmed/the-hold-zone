@@ -25,43 +25,59 @@ score1El.textContent = 0;
 diceEl.classList.add("hidden");
 let currentScore = 0; //state variable which holds some sort of information
 let activePlayer = 0;
+let playing = true;
 
 btnRoll.addEventListener("click", function () {
-  //functionality of rolling dice
-  const dice = Math.trunc(Math.random() * 6) + 1;
-  // appearing of dice after rolling
-  diceEl.classList.remove("hidden");
-  diceEl.src = `imgs/dice-${dice}.png`;
-  console.log(dice);
+  if (playing) {
+    //functionality of rolling dice
+    const dice = Math.trunc(Math.random() * 6) + 1;
+    // appearing of dice after rolling
+    diceEl.classList.remove("hidden");
+    diceEl.src = `imgs/dice-${dice}.png`;
+    console.log(dice);
 
-  //   if dice is not rolled 1
-  if (dice !== 1) {
-    currentScore += dice; //add score to player 1 score
-    document.getElementById(`current--${activePlayer}`).textContent =
-      currentScore; // adding score to active player 0
-  } else {
-    //the whole switch to nextPlayer logic
-    //if dice comes 1
-    //     document.getElementById(`current--${activePlayer}`).textContent = 0; //change the currentScore of player 0 to zero after geeting a dice 1
-    //     currentScore = 0;
-    //     activePlayer = activePlayer === 0 ? 1 : 0; //switch the player to 1
-    //     player0El.classList.toggle("player--active"); //adding the darker shade to active player
-    //     player1El.classList.toggle("player--active");
-    //   }
-    // });
-    switchPlayer();
+    //   if dice is not rolled 1
+    if (dice !== 1) {
+      currentScore += dice; //add score to player 1 score
+      document.getElementById(`current--${activePlayer}`).textContent =
+        currentScore; // adding score to active player 0
+    } else {
+      //the whole switch to nextPlayer logic
+      //if dice comes 1
+      //     document.getElementById(`current--${activePlayer}`).textContent = 0; //change the currentScore of player 0 to zero after geeting a dice 1
+      //     currentScore = 0;
+      //     activePlayer = activePlayer === 0 ? 1 : 0; //switch the player to 1
+      //     player0El.classList.toggle("player--active"); //adding the darker shade to active player
+      //     player1El.classList.toggle("player--active");
+      //   }
+      // });
+      switchPlayer();
+    }
   }
 });
 
 btnHold.addEventListener("click", function () {
-  //add current score to active players scores
-  scores[activePlayer] += currentScore; //scores[1] = scores[1] + currentScore; this is what is happenig  in the above line there
-  //setting scores based on activePlayer
-  document.getElementById(`score--${activePlayer}`).textContent =
-    scores[activePlayer];
+  if (playing) {
+    //add current score to active players scores
+    scores[activePlayer] += currentScore; //scores[1] = scores[1] + currentScore; this is what is happenig  in the above line there
+    //setting scores based on activePlayer
+    document.getElementById(`score--${activePlayer}`).textContent =
+      scores[activePlayer];
 
-  //when score is >100
-
-  //switch to next player
-  switchPlayer();
+    //when score is >100
+    if (scores[activePlayer] >= 20) {
+      //finsh the game
+      playing = false;
+      diceEl.classList.add("hidden");
+      document
+        .querySelector(`.player--${activePlayer}`)
+        .classList.add("player--winner");
+      document
+        .querySelector(`.player--${activePlayer}`)
+        .classList.remove("playerActive");
+    } else {
+      //switch to next player
+      switchPlayer();
+    }
+  }
 });
