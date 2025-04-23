@@ -18,14 +18,35 @@ const switchPlayer = function () {
   player1El.classList.toggle("player--active");
 };
 
+let scores, currentScore, activePlayer, playing; // this is the method of declarig empty varibales and they are currently called global scoped variables as they can be accessed in the functions as well through out the file.
+
 //intialise values
-let scores = [0, 0];
-score0El.textContent = 0;
-score1El.textContent = 0;
-diceEl.classList.add("hidden");
-let currentScore = 0; //state variable which holds some sort of information
-let activePlayer = 0;
-let playing = true;
+const init = function () {
+  //after declaring this function whatnreally happened is that things stopeed working because all the state variables are now in the function and therefore they can be called outside the function so what do we do is that we declare them outside, as declaring the variable and assigning a variable is different
+  scores = [0, 0];
+  currentScore = 0; //state variable which holds some sort of information
+  activePlayer = 0;
+  playing = true;
+
+  current0El.textContent = 0;
+  current1El.textContent = 0;
+  score0El.textContent = 0;
+  score1El.textContent = 0;
+
+  diceEl.classList.add("hidden");
+  player0El.classList.remove("player--winner");
+  player1El.classList.remove("player--winner");
+  player0El.classList.add("player--active");
+  player1El.classList.remove("player--active");
+};
+init();
+// let scores = [0, 0];
+// score0El.textContent = 0;
+// score1El.textContent = 0;
+// diceEl.classList.add("hidden");
+// let currentScore = 0; //state variable which holds some sort of information
+// let activePlayer = 0;
+// let playing = true;
 
 btnRoll.addEventListener("click", function () {
   if (playing) {
@@ -81,3 +102,14 @@ btnHold.addEventListener("click", function () {
     }
   }
 });
+
+btnNew.addEventListener("click", init);
+
+//   current0El.textContent = 0;
+//   current1El.textContent = 0;
+//   score0El.textContent = 0;
+//   score1El.textContent = 0;
+//   player0El.classList.remove("player--winner");
+//   player1El.classList.remove("player--winner");
+//   player0El.classList.add("player--active");
+//   player1El.classList.remove("player--active");
