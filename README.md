@@ -4,6 +4,14 @@ Welcome to the **The Hold Zone Game** — a simple, interactive two-player dice 
 
 ---
 
+## 📸 **Screenshots**
+
+A quick glimpse of the game in action.
+
+## ![Screenshot 1](imgs/1.png)
+
+---
+
 🧠 Game Rules
 
 - Two players take turns to roll a dice.
